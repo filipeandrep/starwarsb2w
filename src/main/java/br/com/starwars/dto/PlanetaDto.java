@@ -12,6 +12,8 @@ public class PlanetaDto {
 	private String clima;
 	@NotEmpty(message = "O terreno é obrigatório")
 	private String terreno;
+	private Integer aparicoesEmFilme;
+	
 
 	public PlanetaDto(@NotEmpty(message = "O nome é obrigatório") String nome,
 			@NotEmpty(message = "O clima é obrigatório") String clima,
@@ -21,17 +23,20 @@ public class PlanetaDto {
 		this.clima = clima;
 		this.terreno = terreno;
 	}
+
 	public PlanetaDto(String id, @NotEmpty(message = "O nome é obrigatório") String nome,
 			@NotEmpty(message = "O clima é obrigatório") String clima,
-			@NotEmpty(message = "O terreno é obrigatório") String terreno) {
+			@NotEmpty(message = "O terreno é obrigatório") String terreno, Integer aparicoesEmFilme) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.clima = clima;
 		this.terreno = terreno;
+		this.aparicoesEmFilme = aparicoesEmFilme;
 	}
 
-
+	public PlanetaDto() {
+	}
 
 	public String getId() {
 		return id;
@@ -63,6 +68,14 @@ public class PlanetaDto {
 
 	public void setTerreno(String terreno) {
 		this.terreno = terreno;
+	}
+
+	public Integer getAparicoesEmFilme() {
+		return aparicoesEmFilme;
+	}
+
+	public void setAparicoesEmFilme(Integer aparicoesEmFilme) {
+		this.aparicoesEmFilme = aparicoesEmFilme;
 	}
 
 	public Planeta convertTo() {

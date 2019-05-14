@@ -5,7 +5,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.starwars.dto.PlanetaDto;
+import br.com.starwars.service.exception.ObjectNotFoundException;
 import br.com.starwars.service.impl.PlanetaService;
 
 @RestController
@@ -35,17 +38,21 @@ public class PlanetaResource {
 	}
 
 	
-	@GetMapping(value="{nome}")
+	@GetMapping(value="pornome/{nome}")
 	public ResponseEntity<List<PlanetaDto>> listarPlanetasPorNome(@PathVariable(required = true) String nome) {
 		return ResponseEntity.ok().body(planetaService.buscarPorNome(nome));
 	}
 	
-	@GetMapping(value="obter/{id}")
+	@GetMapping(value="{id}")
 	public ResponseEntity<PlanetaDto> obterPorId(@PathVariable(required = true) String id) {
-		return ResponseEntity.ok().body(planetaService.obterPorId(id));
+		try {
+			return ResponseEntity.ok().body(planetaService.obterPorId(id));
+		}catch(ObjectNotFoundException e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);	
+		}
 	}
 	
-	@GetMapping(value="remover/{id}")
+	@DeleteMapping(value="{id}")
 	public ResponseEntity<String> removerPorId(@PathVariable(required = true) String id) {
 		planetaService.remover(id);
 		return ResponseEntity.ok("Planeta excluído com sucesso!");

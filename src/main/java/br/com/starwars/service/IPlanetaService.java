@@ -3,7 +3,6 @@ package br.com.starwars.service;
 import java.util.List;
 
 import br.com.starwars.dto.PlanetaDto;
-import br.com.starwars.model.Planeta;
 
 public interface IPlanetaService {
 
@@ -16,4 +15,6 @@ public interface IPlanetaService {
 	PlanetaDto obterPorId(String id);
 
 	void remover(String id);
+	
+	Integer obterQuantidadeDeFilmesRest(Integer id);
 }
